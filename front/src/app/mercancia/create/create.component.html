@@ -1,0 +1,53 @@
+<app-header [title]="title"></app-header>
+<div class="contenedor">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px" style="margin: 8px" class="form-container">
+          <mat-form-field>
+            <mat-label>Nombre producto</mat-label>
+            <input matInput formControlName="nombreProducto" required>
+            <mat-error *ngIf="(registerFormControl.nombreProducto.touched) && registerFormControl.nombreProducto.errors?.required">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="cantidad" required>
+            <mat-error *ngIf="(registerFormControl.cantidad.touched) && registerFormControl.cantidad.errors?.required">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px" style="margin: 8px" class="form-container">
+          <mat-form-field>
+            <mat-label>Fecha ingreso</mat-label>
+            <input matInput
+                   [matDatepicker]="picker"
+                   formControlName="fechaIngreso"
+                   required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+            <mat-error *ngIf="(registerFormControl.fechaIngreso.touched) && registerFormControl.fechaIngreso.errors?.required">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="idUsuario" required>
+              <mat-option *ngFor="let option of selectOptions" [value]="option.value">
+                {{option.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="(registerFormControl['idUsuario'].touched) && registerFormControl['idUsuario'].errors?.required">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px" style="margin: 8px">
+          <button mat-stroked-button (click)="peticion = 'POST'">Guardar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
